@@ -1,3 +1,61 @@
+<?php
+    require_once('resources/init.php');
+    error_reporting(0);
+
+	if(isset($_GET['newUser']))
+    {	
+    	$newname=trim($_GET['newname']);
+    	$username=trim($_GET['username']);
+    	if(empty($newname) || empty($username))
+        {
+            echo '<script>alert("Please Fill All Fields")</script>';
+        }
+        else
+        {
+            if(exitsInDatabase($newname))
+            {
+              echo '<script>alert("This name already exists in the database. Please select another name!")</script>';  
+            }
+            else
+            {
+                $url = "https://www.codechef.com/users/".$username;
+                addToDB($newname,$username,$url);
+            }           
+        }
+
+    }
+    if(isset($_GET['stats']) || isset($_GET['viewProf']))
+    {
+        $name=trim($_GET['name']);
+        if(empty($name))
+        {
+            echo '<script>alert("Please enter a name")</script>';
+        }
+        else
+        {
+            if(!exitsInDatabase($name))
+            {
+              echo '<script>alert("This name doesn\'t exist in database.<br> Add name and username to database and then you can search as and when wou want!")</script>';  
+            }
+            else
+            {
+                if(isset($_GET['stats']))
+                {   
+                    showStats($name);
+                }
+                if(isset($GET['viewProf']))
+                {
+                    $url=getURL($name);
+                    takeTo($url);
+                }
+            }
+        }
+    }
+
+    
+?>
+
+
 <!DOCTYPE html>
 <HTML lang="en">
 <head>
@@ -111,6 +169,29 @@
 	</form>
 
 
+	<!--View User-->
+
+	<div class= "modal fade" id="showdb"> 
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+       				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          				<span aria-hidden="true">&times;</span>
+        			</button>
+        			<h4 class="modal-title" style="color:black;">Database</h4>
+      			</div>
+      			<div class="modal-body" style="color:black;">
+        			<?php showDB();
+        			?>
+     			</div>
+     			<div class="modal-footer">
+        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -119,61 +200,3 @@
 
 </HTML>
 
-<?php
-    require_once('resources/init.php');
-    error_reporting(0);
-
-	if(isset($_GET['newUser']))
-    {	
-    	$newname=trim($_GET['newname']);
-    	$username=trim($_GET['username']);
-    	if(empty($newname) || empty($username))
-        {
-            echo '<script>alert("Please Fill All Fields")</script>';
-        }
-        else
-        {
-            if(exitsInDatabase($newname))
-            {
-              echo '<script>alert("This name already exists in the database. Please select another name!")</script>';  
-            }
-            else
-            {
-                $url = "https://www.codechef.com/users/".$username;;
-                addToDB($newname,$username,$url);
-            }           
-        }
-
-    }
-    if(isset($_GET['stats']) || isset($_GET['viewProf']))
-    {
-        $name=trim($_GET['name']);
-        if(empty($name))
-        {
-            echo '<script>alert("Please enter a name")</script>';
-        }
-        else
-        {
-            if(!exitsInDatabase($name))
-            {
-              echo '<script>alert("This name doesn\'t exist in database.<br> Add name and username to database and then you can search as and when wou want!")</script>';  
-            }
-            else
-            {
-                if(isset($_GET['stats']))
-                {   
-                    showStats($name);
-                }
-                if(isset($GET['viewProf']))
-                {
-                    $url=getURL($name);
-                    takeTo($url);
-                }
-            }
-        }
-    }
-
-    
-
-
-?>

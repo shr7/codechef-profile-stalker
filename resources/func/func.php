@@ -17,10 +17,23 @@
         }
 
 	}
+	function showDB()
+	{
+		$show_query="SELECT * FROM subjects";
+		$run_result=mysql_query($show_query);
+		while ($row_result=mysql_fetch_array($run_result)) {
+			$name=$row_result['name'];
+			$username=$row_result['cfusername'];
+			$url=$row_result['url'];
+			echo "<h5>".$name."   "."<a href=\"$url\">$url</a>"."</h5><br>";
+
+		}
+
+	}
 
 	function getURL($name)
 	{
-		return "https://www.codechef.com/users/".$name;
+		
 	}
 
 	function showStats($name)
