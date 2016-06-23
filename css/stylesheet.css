@@ -1,0 +1,47 @@
+body{
+   color: white;
+
+}
+html, body {
+    margin: 0; 
+    height: 100%; 
+    overflow: hidden;
+}
+
+
+.footer{
+    position: absolute;
+    width: 100%;
+    bottom:0; 
+    height: 40px;
+    background-color: #161618; 
+    color: white;
+        padding-top: 10px;
+
+}
+.footer a{
+    color: white;
+    text-decoration: underline;
+}
+
+
+
+
+ul.topnav {
+    list-style-type: none;
+   	right: 0;
+    padding: 0;
+    overflow: hidden;
+   	font-family: 'Roboto Slab', serif;
+ }
+ ul.topnav li {float: right;}
+
+ul.topnav li a {
+    display: inline-block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+    color: #f2f2f2;
+}
