@@ -4,19 +4,22 @@ body{
 }
 html, body {
     margin: 0; 
-    height: 100%; 
-    overflow: hidden;
+ /*   height: 100%;     
+    overflow: hidden; */
+}
+form h4{
+    color: #161618;
 }
 
 
 .footer{
-    position: absolute;
+    position: fixed;   
     width: 100%;
     bottom:0; 
     height: 40px;
     background-color: #161618; 
     color: white;
-        padding-top: 10px;
+    padding-top: 10px;
 
 }
 .footer a{
