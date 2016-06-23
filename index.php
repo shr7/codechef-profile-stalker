@@ -139,14 +139,9 @@
             }
             else
             {
-                $url="https://www.codechef.com/users/".$username;
-
-                $insert_query="INSERT INTO subjects (name, cfusername, url) values ('$newname','$username','$url')";
-            }
-            if(mysql_query($insert_query))
-            {
-                echo "<script>alert('Data Inserted In Database')</script>";
-            }
+                $url = "https://www.codechef.com/users/".$username;;
+                addToDB($newname,$username,$url);
+            }           
         }
 
     }
