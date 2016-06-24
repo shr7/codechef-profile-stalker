@@ -25,7 +25,7 @@
 			$name=$row_result['name'];
 			$username=$row_result['cfusername'];
 			$url=$row_result['url'];
-			echo "<h5>".$name."   "."<a href=\"$url\">$url</a>"."</h5><br>";
+			echo "<h5>".$name."   "."<a href=\"$url\" target='_blank'>$url</a>"."</h5><br>";
 
 		}
 
@@ -33,7 +33,11 @@
 
 	function getURL($name)
 	{
-		
+		$url_query="SELECT url FROM subjects WHERE name = '$name'";
+		$run_query=mysql_query($url_query);
+		$row=mysql_fetch_row($run_query);
+		return $row[0];
+
 	}
 
 	function showStats($name)
@@ -43,5 +47,6 @@
 
 	function takeTo($url)
 	{
-		echo "<script>$.get($url)</script>";
+		header("Location: $url"); /* Redirect browser */
+		exit();
 	}

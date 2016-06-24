@@ -2,10 +2,10 @@
     require_once('resources/init.php');
     error_reporting(0);
 
-	if(isset($_GET['newUser']))
+	if(isset($_POST['newUser']))
     {	
-    	$newname=trim($_GET['newname']);
-    	$username=trim($_GET['username']);
+    	$newname=trim($_POST['newname']);
+    	$username=trim($_POST['username']);
     	if(empty($newname) || empty($username))
         {
             echo '<script>alert("Please Fill All Fields")</script>';
@@ -24,9 +24,9 @@
         }
 
     }
-    if(isset($_GET['stats']) || isset($_GET['viewProf']))
+    if(isset($_POST['stats']) || isset($_POST['viewProf']))
     {
-        $name=trim($_GET['name']);
+        $name=trim($_POST['name']);
         if(empty($name))
         {
             echo '<script>alert("Please enter a name")</script>';
@@ -35,18 +35,19 @@
         {
             if(!exitsInDatabase($name))
             {
-              echo '<script>alert("This name doesn\'t exist in database.<br> Add name and username to database and then you can search as and when wou want!")</script>';  
+              echo '<script>alert("This name doesn\'t exist in database. Add name and codechef username to database and then you can search as and when wou want!")</script>';  
             }
             else
             {
-                if(isset($_GET['stats']))
+                if(isset($_POST['stats']))
                 {   
-                    showStats($name);
+                    //showStats($name);
                 }
-                if(isset($GET['viewProf']))
+                if(isset($_POST['viewProf']))
                 {
                     $url=getURL($name);
-                    takeTo($url);
+                   	//takeTo($url);
+                    echo "<script>window.open('$url')</script>";
                 }
             }
         }
@@ -73,6 +74,7 @@
 	 <!--css for Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="css/bootstrap-social.css" rel="stylesheet">
 
     <!--Fonts-->
    	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
@@ -84,10 +86,11 @@
 	<!--Navigation bar-->
     <nav class="navbar navbar-inverse ">
         <div class="container">
-        <ul class="topnav">
-            <li><a href="#">About Me</a></li>
-            <li><a href="#">Instructions</a></li>
-        </ul>
+        	<ul class="topnav">
+            	<li><a href="#">About Me</a></li>
+            	<li><a href="#">Instructions</a></li>
+        		<li><a href="index.php">Home</a></li>
+        	</ul>
         </div>
     </nav>
 
@@ -96,8 +99,11 @@
         <div class="row">
             <center>
                 <div class="col-sm-12">
-                    <h2>Stalk User :D</h2>
-                    <form class="" role="form" action="index.php" method="GET" enctype="multipart/form-data">
+                	<div class="row">
+                    <h2 class="col-sm-11">Let The Stalking Begin!</h2>			<!--col-sm added only to bring the heading in the middle according to form below-->
+                    </div>
+                    <br><br>
+                    <form class="" role="form" action="index.php" method="POST" enctype="multipart/form-data">
                         <div class=" row form-group">
                             <label class="col-sm-3" ><h3>Name of the user</h3></label>
                             <div class="col-sm-5">
@@ -130,16 +136,20 @@
     <br>
     <br>
     <br>
+  
 
         
     <div class="footer">
       <div class="container-fluid">
            <center><p class="footerText">Codechef Stalker By <a href="">Shreya</a></p></center>
+            <a class="btn btn-social-icon btn-twitter">
+ 				<span class="fa fa-twitter"></span>
+  			</a>
       </div>
     </div>
 
     <!--Add User Modal-->
-    <form class="modal fade" id="addUser" action="index.php" method="GET" enctype="multipart/form-data">
+    <form class="modal fade" id="addUser" action="index.php" method="POST" enctype="multipart/form-data">
 		<div class="modal-dialog modal-md">
   			<div class="modal-content">
 			    <div class="modal-header">
