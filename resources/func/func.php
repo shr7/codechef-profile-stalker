@@ -30,7 +30,6 @@
 		}
 
 	}
-
 	function getURL($name)
 	{
 		$url_query="SELECT url FROM subjects WHERE name = '$name'";
@@ -39,6 +38,108 @@
 		return $row[0];
 
 	}
+	function scrapeURL($url)
+	{
+		$html=file_get_contents($url);
+		$new_doc = new DOMDocument();
+		libxml_use_internal_errors(TRUE); //disable libxml errors
+		if(!empty($html))
+		{
+			$new_doc->loadHTML($html);
+			libxml_clear_errors(); //remove errors for bad html
+			$new_xpath = new DOMXPath($new_doc);
+
+			$statsTable = $new_xpath->query('//table[@id="problem_stats"]');
+
+			foreach($statsTable as $table)
+			{
+	          	$table_row=$new_xpath->query('tr', $table);
+	          	$i=0;
+	          	foreach($table_row as $tr)
+	          	{
+	            	$td=$new_xpath->query('td', $tr);
+	            	if($i==1)
+	            	{ 
+		            	$j=0;
+		           		foreach ($td as $key) 
+			            {
+			                switch ($j) 
+			                {
+			        	        case 0:
+			                    	$total_solved=$key->nodeValue;
+			                      	break;
+			                    case 1:
+			                        $partly_solved=$key->nodeValue;
+			                      	break;
+			                    case 2:
+			                        $submitted=$key->nodeValue;
+			                      	break;
+			                    case 3:
+			                        $partly_acc=$key->nodeValue;                       
+			                    	break;
+			                    case 4:
+			                        $total_Acc=$key->nodeValue;
+			                   		break;
+			                    case 5:
+			                        $wa=$key->nodeValue;
+			                      	break;
+			                    case 6:
+			                        $cte=$key->nodeValue;
+			                      	break;
+			                    case 7:
+			                        $rte=$key->nodeValue;
+			                      	break;
+			                    case 8:
+			                        $tle=$key->nodeValue;
+			                      	break;  
+			                }
+			                $j=$j+1;
+			            }
+		       		}
+		        $i=$i+1;
+		      }
+		    }
+
+		    $r_table = $new_xpath->query('//table[@class="rating-table"]');
+
+    	    foreach($r_table as $table)
+    	    {
+            	$table_row=$new_xpath->query('tr', $table);
+               	$i=0;
+          		foreach($table_row as $tr)
+          		{
+            		$td=$new_xpath->query('td', $tr);
+	            	foreach ($td as $key) 
+	            	{
+                		switch ($i) 
+                		{
+                    		case 4:
+                    	    	$long_rank=$key->nodeValue;
+                      			break;
+		                    case 5:
+		                        $long_rating=$key->nodeValue;
+		                      	break;
+		                    case 7:
+		                        $short_rank=$key->nodeValue;
+		                      	break;
+		                    case 8:
+		                        $short_rating=$key->nodeValue;                       
+		                      	break;
+		                    case 10:
+		                        $LTime_rank=$key->nodeValue;
+		                      	break;
+		                    case 11:
+		                        $LTime_rating=$key->nodeValue;
+		                      	break;
+		                }
+                	$i=$i+1;
+    	            }
+            	}
+            }	
+			
+		}
+	}
+
 
 	function showStats($name)
 	{
@@ -47,6 +148,5 @@
 
 	function takeTo($url)
 	{
-		header("Location: $url"); /* Redirect browser */
-		exit();
+	//	header("Location: $url"); /* Redirect browser */
 	}

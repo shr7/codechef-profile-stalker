@@ -40,7 +40,9 @@
             else
             {
                 if(isset($_POST['stats']))
-                {   
+                {  
+                	$url=getURL($name);
+                	scrapeURL($url); 
                     //showStats($name);
                 }
                 if(isset($_POST['viewProf']))
@@ -191,7 +193,8 @@
         			<h4 class="modal-title" style="color:black;">Database</h4>
       			</div>
       			<div class="modal-body" style="color:black;">
-        			<?php showDB();
+        			<?php 
+        				showDB();
         			?>
      			</div>
      			<div class="modal-footer">
