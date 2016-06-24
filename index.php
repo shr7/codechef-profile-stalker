@@ -27,6 +27,7 @@
     if(isset($_POST['stats']) || isset($_POST['viewProf']))
     {
         $name=trim($_POST['name']);
+   //     $_SESSION['name']=$name;
         if(empty($name))
         {
             echo '<script>alert("Please enter a name")</script>';
@@ -39,16 +40,16 @@
             }
             else
             {
-                if(isset($_POST['stats']))
+            	if(isset($_POST['stats']))
                 {  
                 	$url=getURL($name);
-                	scrapeURL($url); 
-                    //showStats($name);
+                	$getValues=scrapeURL($url); 
+
+
                 }
                 if(isset($_POST['viewProf']))
                 {
                     $url=getURL($name);
-                   	//takeTo($url);
                     echo "<script>window.open('$url')</script>";
                 }
             }
@@ -76,7 +77,6 @@
 	 <!--css for Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-	<link href="css/bootstrap-social.css" rel="stylesheet">
 
     <!--Fonts-->
    	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
@@ -114,7 +114,7 @@
                             </div>      
                             <div class="col-sm-2">
                                 <br>
-                                <input type="submit" name="stats" value="Track Statistics" class="btn btn-sample">
+                                <input type="submit" name="stats" value="Track Statistics" class="btn btn-sample" data-toggle="modal" data-target="#viewStats" >
                             </div>      
                             <div class="col-sm-2">
                                 <br>
@@ -144,9 +144,6 @@
     <div class="footer">
       <div class="container-fluid">
            <center><p class="footerText">Codechef Stalker By <a href="">Shreya</a></p></center>
-            <a class="btn btn-social-icon btn-twitter">
- 				<span class="fa fa-twitter"></span>
-  			</a>
       </div>
     </div>
 
@@ -204,7 +201,34 @@
 		</div>
 	</div>
 
+<!--View Stats-->
 
+	<div class= "modal fade" id="viewStats"> 
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+       				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          				<span aria-hidden="true">&times;</span>
+        			</button>
+        			<h4 class="modal-title" style="color:black;">Performance Statistics</h4>
+      			</div>
+      			<div class="modal-body" style="color:black;">
+        			<?php
+        			//	if(isset($_SESSION['name']))
+        			//	{
+        					showStats($getValues[0], $getValues[1], $getValues[2], $getValues[3], $getValues[4], $getValues[5], $getValues[6], $getValues[7], $getValues[8], $getValues[9], $getValues[10], $getValues[11], $getValues[12], $getValues[13], $getValues[14]);
+        			//	}
+        			?>
+				</div>
+     			<div class="modal-footer">
+        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

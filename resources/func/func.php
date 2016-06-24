@@ -78,7 +78,7 @@
 			                        $partly_acc=$key->nodeValue;                       
 			                    	break;
 			                    case 4:
-			                        $total_Acc=$key->nodeValue;
+			                        $total_acc=$key->nodeValue;
 			                   		break;
 			                    case 5:
 			                        $wa=$key->nodeValue;
@@ -135,18 +135,24 @@
                 	$i=$i+1;
     	            }
             	}
-            }	
+            }
 			
 		}
+		return array($total_solved, $partly_solved, $submitted, $partly_acc, $total_acc, $wa, $cte, $rte, $tle, $long_rank,$long_rating, $short_rank, $short_rating, $LTime_rank, $LTime_rating);
 	}
 
 
-	function showStats($name)
+	function showStats($total_solved, $partly_solved, $submitted, $partly_acc, $total_acc, $wa, $cte, $rte, $tle, $long_rank,$long_rating, $short_rank, $short_rating, $LTime_rank, $LTime_rating)
 	{
-
+		echo "<strong>PROBLEM STATISTICS</strong><br>";
+		echo "Problems Solved: ".$total_solved."<br>Problems Partially Solved: ".$partly_solved."<br>Total Submimssions: ".$submitted."<br>Solutions Accepted: ". $total_acc."<br>Solutions Partially Accepted: ". $partly_acc."<br>Wrong Answers: ". $wa."<br>Compile Time Error: ". $cte."<br>Run Time Error: ". $rte."<br>Time Limit Exceeded: ". $tle."<br><br>";
+		echo "<strong>Ranks And Ratings</strong><br>"; 
+		echo "Long Ranks: ".$long_rank."  Rating: ".$long_rating."<br>Short Rank: ". $short_rank."  Rating: ". $short_rating."<br>LTime Rank: ". $LTime_rank."  Rating: ".$LTime_rating;		
+		
 	}
 
 	function takeTo($url)
 	{
-	//	header("Location: $url"); /* Redirect browser */
+		header("Location: $url"); /* Redirect browser */
 	}
+	
